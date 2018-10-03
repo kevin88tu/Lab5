@@ -9,10 +9,32 @@
  */
 public class Bank {
 
-    public String bankName;
+    /**
+     * bankName.
+     */
+    private String bankName;
 
+    /**
+     * Creates a bank.
+     */
     public Bank() {
         bankName = "Illini Bank";
+    }
+
+    /**
+     * Getter for bankName.
+     * @return a bank name.
+     */
+    public String getBankName() {
+        return bankName;
+    }
+
+    /**
+     * Setter for bank name.
+     * @param bN bank name
+     */
+    public void setBankName(final String bN) {
+        bankName = bN;
     }
 
     /**
@@ -29,6 +51,15 @@ public class Bank {
         /*
          * Implement this function
          */
+        if (amount < 0) {
+            return false;
+        }
+        if (amount > bankAccount.getAccountBalance()) {
+            return false;
+        } else {
+            bankAccount.setAccountBalance((bankAccount.getAccountBalance() - amount));
+            return true;
+        }
     }
 
     /**
@@ -45,6 +76,12 @@ public class Bank {
         /*
          * Implement this function
          */
+        if (amount < 0) {
+            return false;
+        } else {
+            bankAccount.setAccountBalance(bankAccount.getAccountBalance() + amount);
+            return true;
+        }
     }
 
     /**
@@ -60,10 +97,17 @@ public class Bank {
      */
 
     public boolean transferMoney(final BankAccount source, final BankAccount destination,
-            final double amount) {
+                                 final double amount) {
         /*
          * Implement this function
          */
+        if (!withdrawMoney(source, amount)) {
+            return false;
+        }
+        if (!depositMoney(destination, amount)) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -77,6 +121,7 @@ public class Bank {
         /*
          * Implement this function
          */
+        bankAccount.setOwnerName(name);
     }
 
     public static int totalAccounts = 0;
@@ -89,6 +134,7 @@ public class Bank {
         /*
          * Implement this function
          */
+        return totalAccounts;
     }
 
     /**
@@ -124,3 +170,4 @@ public class Bank {
         System.out.println(Bank.totalAccounts);
     }
 }
+
